@@ -22,8 +22,7 @@ cp .env.example .env
 docker compose up -d --wait
 ```
 
-Сервис доступен на `http://127.0.0.1:8080`. TLS настраивается на reverse
-proxy перед ним.
+Сервис доступен на `http://127.0.0.1:8080`.
 
 ## OIDC-клиент
 
