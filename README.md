@@ -18,7 +18,7 @@
 
 ```bash
 docker login normocontrol.registry.twcstorage.ru
-cp .env.example .env
+cp .env.example .env   # заполните под себя, см. «Переменные окружения»
 docker compose up -d --wait
 ```
 
@@ -41,62 +41,65 @@ docker compose up -d --wait
 
 ## Переменные окружения
 
-Значения задаются в `.env`. Адреса PostgreSQL, RabbitMQ и S3 по умолчанию
-указывают на сервисы `postgres`, `rabbitmq` и `minio` из `docker-compose.yml`.
+Все переменные перечислены в `.env.example`. Адреса PostgreSQL, RabbitMQ и S3
+в нём указывают на сервисы `postgres`, `rabbitmq` и `minio` из
+`docker-compose.yml`.
 
 ### Приложение
 
-| Переменная               | По умолчанию           | Описание                                                       |
-| ------------------------ | ---------------------- | -------------------------------------------------------------- |
-| `IMAGE_TAG`              | обязательна            | Тег образов `frontend`, `api`, `checker`, например `v1.0.0`    |
-| `HOST_URL`               | обязательна            | Публичный адрес сервиса без `/` в конце                        |
-| `JWT_SECRET`             | обязательна            | Ключ подписи сессий, Base64 не короче 32 байт                  |
-| `APP_BIND`               | `127.0.0.1`            | Адрес, на котором слушает `gateway`                            |
-| `APP_PORT`               | `8080`                 | Порт `gateway`                                                 |
-| `DOCUMENT_CHECK_WORKERS` | `1`                    | Число параллельных проверок в `checker`                        |
+| Переменная               | В `.env.example`                  | Описание                                                    |
+| ------------------------ | --------------------------------- | ----------------------------------------------------------- |
+| `IMAGE_TAG`              | `v1.0.0`                          | Тег образов `frontend`, `api`, `checker`                    |
+| `HOST_URL`               | `https://normocontrol.example.ru` | Публичный адрес сервиса без `/` в конце                     |
+| `APP_BIND`               | `127.0.0.1`                       | Адрес, на котором слушает `gateway`                         |
+| `APP_PORT`               | `8080`                            | Порт `gateway`                                              |
+| `DOCUMENT_CHECK_WORKERS` | `1`                               | Число параллельных проверок в `checker`                     |
+| `JWT_SECRET`             | пусто                             | Ключ подписи сессий, Base64 не короче 32 байт               |
 
 ### OIDC
 
-| Переменная           | По умолчанию           | Описание                                       |
-| -------------------- | ---------------------- | ---------------------------------------------- |
-| `OIDC_ISSUER_URI`    | обязательна            | Issuer Identity Provider                       |
-| `OIDC_CLIENT_ID`     | обязательна            | Идентификатор OIDC-клиента                     |
-| `OIDC_CLIENT_SECRET` | обязательна            | Секрет OIDC-клиента                            |
-| `OIDC_SCOPES`        | `openid,profile,email` | Запрашиваемые scope через запятую              |
-| `OIDC_ADMIN_EMAILS`  | пусто                  | Email администраторов через запятую            |
+| Переменная           | В `.env.example`                        | Описание                            |
+| -------------------- | --------------------------------------- | ----------------------------------- |
+| `OIDC_ISSUER_URI`    | `https://idp.example.ru/realms/example` | Issuer Identity Provider            |
+| `OIDC_CLIENT_ID`     | пусто                                   | Идентификатор OIDC-клиента          |
+| `OIDC_CLIENT_SECRET` | пусто                                   | Секрет OIDC-клиента                 |
+| `OIDC_SCOPES`        | `openid,profile,email`                  | Запрашиваемые scope через запятую   |
+| `OIDC_ADMIN_EMAILS`  | `admin@example.ru,ivanov@example.ru`    | Email администраторов через запятую |
 
 ### PostgreSQL
 
-| Переменная          | По умолчанию                                         | Описание                  |
-| ------------------- | ---------------------------------------------------- | ------------------------- |
-| `POSTGRES_URL`      | `jdbc:postgresql://postgres:5432/normative-control`  | JDBC-адрес базы для `api` |
-| `POSTGRES_USER`     | `postgres`                                           | Пользователь базы         |
-| `POSTGRES_PASSWORD` | обязательна                                          | Пароль пользователя       |
+| Переменная          | В `.env.example`                                    | Описание                  |
+| ------------------- | --------------------------------------------------- | ------------------------- |
+| `POSTGRES_URL`      | `jdbc:postgresql://postgres:5432/normative-control` | JDBC-адрес базы для `api` |
+| `POSTGRES_USER`     | `postgres`                                          | Пользователь базы         |
+| `POSTGRES_PASSWORD` | пусто                                               | Пароль пользователя       |
 
 ### RabbitMQ
 
-| Переменная          | По умолчанию   | Описание                                                    |
-| ------------------- | -------------- | ----------------------------------------------------------- |
-| `RABBITMQ_HOST`     | `rabbitmq`     | Хост брокера                                                |
-| `RABBITMQ_PORT`     | `5672`         | Порт AMQP                                                   |
-| `RABBITMQ_USERNAME` | `normocontrol` | Пользователь                                                |
-| `RABBITMQ_PASSWORD` | обязательна    | Пароль: только латинские буквы и цифры       |
+| Переменная               | В `.env.example`   | Описание                                |
+| ------------------------ | ------------------ | --------------------------------------- |
+| `RABBITMQ_HOST`          | `rabbitmq`         | Хост брокера                            |
+| `RABBITMQ_PORT`          | `5672`             | Порт AMQP                               |
+| `RABBITMQ_USERNAME`      | `normocontrol`     | Пользователь                            |
+| `RABBITMQ_PASSWORD`      | пусто              | Пароль: только латинские буквы и цифры  |
+| `RABBITMQ_REQUEST_QUEUE` | `document.request` | Очередь заданий на проверку             |
+| `RABBITMQ_RESULT_QUEUE`  | `document.result`  | Очередь результатов проверки            |
 
 ### S3
 
-| Переменная      | По умолчанию        | Описание                                                  |
-| --------------- | ------------------- | --------------------------------------------------------- |
-| `S3_URL`        | `http://minio:9000` | Адрес хранилища для `api`, со схемой                      |
-| `S3_ENDPOINT`   | `minio:9000`        | Адрес того же хранилища для `checker`, без схемы          |
-| `S3_SECURE`     | `false`             | `true`, если `checker` подключается к хранилищу по HTTPS  |
-| `S3_REGION`     | `us-east-1`         | Регион                                                    |
-| `S3_BUCKET`     | `normocontrol`      | Бакет                                           |
-| `S3_ACCESS_KEY` | обязательна         | Ключ доступа                                              |
-| `S3_SECRET_KEY` | обязательна         | Секретный ключ |
+| Переменная      | В `.env.example`    | Описание                                                 |
+| --------------- | ------------------- | -------------------------------------------------------- |
+| `S3_URL`        | `http://minio:9000` | Адрес хранилища для `api`, со схемой                     |
+| `S3_ENDPOINT`   | `minio:9000`        | Адрес того же хранилища для `checker`, без схемы         |
+| `S3_SECURE`     | `false`             | `true`, если `checker` подключается к хранилищу по HTTPS |
+| `S3_REGION`     | `us-east-1`         | Регион                                                   |
+| `S3_BUCKET`     | `normocontrol`      | Бакет                                                    |
+| `S3_ACCESS_KEY` | `normocontrol`      | Ключ доступа                                             |
+| `S3_SECRET_KEY` | пусто               | Секретный ключ                                           |
 
 ## Требования к инфраструктуре
 
 - PostgreSQL 16 или новее, пустая база. Схему создаёт `api` при старте.
-- RabbitMQ 4 или новее. Очереди `document.request` и `document.result`
-  создаются автоматически.
+- RabbitMQ 4 или новее. Очереди из `RABBITMQ_REQUEST_QUEUE` и
+  `RABBITMQ_RESULT_QUEUE` создаются автоматически.
 - S3-совместимое хранилище с заранее созданным бакетом.
