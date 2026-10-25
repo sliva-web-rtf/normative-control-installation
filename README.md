@@ -80,7 +80,7 @@ docker compose up -d --wait
 | `RABBITMQ_HOST`     | `rabbitmq`     | Хост брокера                                                |
 | `RABBITMQ_PORT`     | `5672`         | Порт AMQP                                                   |
 | `RABBITMQ_USERNAME` | `normocontrol` | Пользователь                                                |
-| `RABBITMQ_PASSWORD` | обязательна    | Пароль, без символов, требующих экранирования в URL         |
+| `RABBITMQ_PASSWORD` | обязательна    | Пароль: только латинские буквы и цифры       |
 
 ### S3
 
