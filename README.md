@@ -32,7 +32,6 @@ docker compose up -d --wait
 - Authorization Code flow с PKCE `S256`, confidential-клиент с секретом;
 - redirect URI: `<HOST_URL>/api/auth/oidc/callback`;
 - post logout redirect URI: `<HOST_URL>/`;
-- discovery IdP содержит `end_session_endpoint`, иначе `api` не стартует;
 - в ID token или userinfo передаётся claim `person` (допускается внутри claim
   `user`) с полями `guid`, `id`, `email`, `lastName`, `firstName` и
   необязательным `middleName`;
