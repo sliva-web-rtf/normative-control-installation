@@ -54,7 +54,7 @@ docker compose up -d --wait
 | `APP_BIND`               | `127.0.0.1`                       | Адрес, на котором слушает `gateway`                         |
 | `APP_PORT`               | `8080`                            | Порт `gateway`                                              |
 | `DOCUMENT_CHECK_WORKERS` | `1`                               | Число параллельных проверок в `checker`                     |
-| `JWT_SECRET`             | пусто                             | Ключ подписи сессий, Base64 не короче 32 байт               |
+| `JWT_SECRET`             | пусто                             | Ключ подписи сессий в Base64, минимум 32 байта после декодирования |
 
 ### OIDC
 
@@ -96,6 +96,10 @@ docker compose up -d --wait
 | `S3_BUCKET`     | `normocontrol`      | Бакет                                                    |
 | `S3_ACCESS_KEY` | `normocontrol`      | Ключ доступа                                             |
 | `S3_SECRET_KEY` | пусто               | Секретный ключ                                           |
+
+## Обновление
+
+[Обновление с v1.0.0 до v2.0.0](docs/migrations/upgrade-v1.0.0-to-v2.0.0.md).
 
 ## Требования к инфраструктуре
 
