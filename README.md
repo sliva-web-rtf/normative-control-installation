@@ -49,7 +49,7 @@ docker compose up -d --wait
 
 | Переменная               | В `.env.example`                  | Описание                                                    |
 | ------------------------ | --------------------------------- | ----------------------------------------------------------- |
-| `IMAGE_TAG`              | `v1.0.0`                          | Тег образов `frontend`, `api`, `checker`                    |
+| `IMAGE_TAG`              | `v2.0.0`                          | Тег образов `frontend`, `api`, `checker`                    |
 | `HOST_URL`               | `https://normocontrol.example.ru` | Публичный адрес сервиса без `/` в конце                     |
 | `APP_BIND`               | `127.0.0.1`                       | Адрес, на котором слушает `gateway`                         |
 | `APP_PORT`               | `8080`                            | Порт `gateway`                                              |
@@ -64,7 +64,8 @@ docker compose up -d --wait
 | `OIDC_CLIENT_ID`     | пусто                                   | Идентификатор OIDC-клиента          |
 | `OIDC_CLIENT_SECRET` | пусто                                   | Секрет OIDC-клиента                 |
 | `OIDC_SCOPES`        | `openid,profile,email`                  | Запрашиваемые scope через запятую   |
-| `OIDC_ADMIN_EMAILS`  | `admin@example.ru,ivanov@example.ru`    | Email администраторов через запятую |
+| `OIDC_OWNER_EMAILS`  | `owner@example.ru`                     | Email владельцев организации через запятую |
+| `OIDC_INSTITUTION_NAME` | `УрФУ`                               | Обязательное название вуза для профиля и сертификата |
 
 ### PostgreSQL
 
