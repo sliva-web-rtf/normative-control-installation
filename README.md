@@ -64,7 +64,7 @@ docker compose up -d --wait
 | `OIDC_CLIENT_ID`     | пусто                                   | Идентификатор OIDC-клиента          |
 | `OIDC_CLIENT_SECRET` | пусто                                   | Секрет OIDC-клиента                 |
 | `OIDC_SCOPES`        | `openid,profile,email`                  | Запрашиваемые scope через запятую   |
-| `OIDC_OWNER_EMAILS`  | `owner@example.ru`                     | Email владельцев организации через запятую |
+| `OIDC_OWNER_EMAILS`  | `owner1@example.ru,owner2@example.ru` | Email владельцев организации через запятую |
 | `OIDC_INSTITUTION_NAME` | `УрФУ`                               | Обязательное название вуза для профиля и сертификата |
 
 ### PostgreSQL
